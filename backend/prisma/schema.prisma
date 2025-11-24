@@ -12,6 +12,7 @@ model Usuario {
   nome          String?
   email         String?  @unique
   senha         String?
+  status        Boolean  @default(false)      // <-- aqui
   data_registro DateTime @default(now())
 
   @@map("usuario")

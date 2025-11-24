@@ -7,7 +7,7 @@ export default function authMiddleware(req:Request,res:Response,next:NextFunctio
         if(!authHeader){
             return res.status(401).json({message:"Token não fornecido"});
         }
-        const token = authHeader.split(" ")[1];
+        const token = req.cookies?.token || authHeader.split(" ")[1];
         try{
             const decoded:TokenDecoded = verifyToken(token);
             req.userId = decoded.id;

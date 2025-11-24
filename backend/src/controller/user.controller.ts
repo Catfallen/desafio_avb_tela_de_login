@@ -34,9 +34,19 @@ export default {
                 return res.status(401).json({'msg':"credenciais incorretas"});
             }
             const token:string = await generateToken({id:usuario.id,email:usuario.email})
+            
             const {id,nome,email} = usuario;
+            // --------------- 🔥 SETAR COOKIE COM O TOKEN ---------------
+            res.cookie("token", token, {
+            httpOnly: true,     // não acessível por JS -> segurança
+            secure: false,      // true se usar HTTPS
+            sameSite: "lax",    // permite navegação normal
+            maxAge: 1000 * 60 * 60 * 24, // 24 horas
+            path: "/"           // disponível para toda API
+            });
+        // -----------------------------------------------------------
 
-            return res.json({user:{id:id,nome:nome,email:email},token:token});
+            return res.json({id:id,nome:nome,email:email,token:token});
         } catch (err) {
             return res.status(500).json({ error: "Erro ao buscar usuário" });
         }
@@ -46,6 +56,7 @@ export default {
     async register(req: Request, res: Response) {
     try {
         const data: UsuarioCreateDTO = req.body;
+        console.log(req.body);
         console.log(data);
         
         // Hash da senha
