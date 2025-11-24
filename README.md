@@ -44,27 +44,14 @@ Isso evita que scripts maliciosos acessem o token via JavaScript, reduzindo risc
 
 ---
 
-## 📁 **Estrutura do Projeto**
-│
-├── dist/ # Arquivos compilados do TypeScript
-├── node_modules/
-├── package.json
-├── tsconfig.json
-│
-└── src/
-├── index.ts # Ponto de entrada da aplicação
-├── config/ # Configuração de conexão com o MongoDB
-├── controller/ # Controladores das rotas
-├── middleware/ # Middlewares (ex: verificação de token)
-├── models/ # Schemas do Mongoose
-├── routes/ # Rotas da API
-├── service/ # Regras de negócio
-├── utils/ # Funções utilitárias
-├── @types/ # Tipagens personalizadas
-│
-└── public/ # 🟦 Front-end (HTML, CSS, JS)
-├── css/
-├── js/
-├── images/
-└── *.html # Páginas front-end
+## ✔️ **Fluxo de Autenticação**
+
+1. Usuário envia email + senha  
+2. Backend valida credenciais  
+3. Um **JWT** é gerado  
+4. O token é enviado ao cliente via **cookie HTTP-only**  
+5. Rotas privadas verificam o token antes de permitir acesso  
+
+---
+
 
